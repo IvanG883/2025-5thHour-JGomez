@@ -1,92 +1,124 @@
+import pygame
 import random
-import time
+import sys
 
-# Config
-STARTING_BALANCE = 100
-MIN_BET = 20
-MAX_BET = 100_000
+# Initialize Pygame
+pygame.init()
+WIDTH, HEIGHT = 600, 400
+SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Slot Machine")
+FONT = pygame.font.SysFont('arial', 32)
+BIG_FONT = pygame.font.SysFont('arial', 48)
 
-# Slot Symbols and their multipliers
-symbols = {
-    '🍒': 2,
-    '🍋': 3,
-    '🔔': 5,
-    '💎': 10,
-    '7️⃣': 25,
-}
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GOLD = (255, 215, 0)
+GREEN = (0, 200, 0)
+RED = (200, 0, 0)
+GRAY = (200, 200, 200)
 
-symbol_list = list(symbols.keys())
+# Game Variables
+symbols = ['🍒', '🍋', '🔔', '⭐', '💎']
+reels = ["", "", ""]
+balance = 100
+bet = 10
+message = "Press SPIN!"
+spinning = False
 
-def spin_reels():
-    return [random.choice(symbol_list) for _ in range(3)]
+# Button class
+class Button:
+    def __init__(self, x, y, w, h, text, callback):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.text = text
+        self.callback = callback
 
-def calculate_payout(reels, bet):
-    if reels.count(reels[0]) == 3:
-        # 3 matching symbols
-        symbol = reels[0]
-        multiplier = symbols[symbol] * 10
-        return bet * multiplier, f"🎉 JACKPOT! 3x {symbol} | Multiplier: {multiplier}x"
+    def draw(self):
+        pygame.draw.rect(SCREEN, GOLD, self.rect)
+        pygame.draw.rect(SCREEN, BLACK, self.rect, 2)
+        label = FONT.render(self.text, True, BLACK)
+        SCREEN.blit(label, (self.rect.x + 15, self.rect.y + 10))
+
+    def click(self, pos):
+        if self.rect.collidepoint(pos):
+            self.callback()
+
+# Functions
+def spin():
+    global reels, balance, bet, message
+
+    if balance < bet:
+        message = "Not enough balance!"
+        return
+
+    # Deduct bet
+    balance -= bet
+
+    # Spin reels
+    reels[:] = [random.choice(symbols) for _ in range(3)]
+
+    # Evaluate result
+    if reels[0] == reels[1] == reels[2]:
+        winnings = bet * 10
+        message = f"JACKPOT! You win ${winnings}!"
     elif reels[0] == reels[1] or reels[1] == reels[2] or reels[0] == reels[2]:
-        # 2 matching symbols
-        match = reels[0] if reels[0] == reels[1] or reels[0] == reels[2] else reels[1]
-        multiplier = symbols[match]
-        return bet * multiplier, f"✅ Nice! 2x {match} | Multiplier: {multiplier}x"
+        winnings = bet * 3
+        message = f"You matched 2! Win ${winnings}"
     else:
-        return 0, "❌ No match. You lost."
+        winnings = 0
+        message = "Try again!"
 
-def get_bet(balance):
-    while True:
-        try:
-            bet = int(input(f"💰 Enter your bet (${MIN_BET}–${MAX_BET}): "))
-            if bet < MIN_BET:
-                print(f"❌ Minimum bet is ${MIN_BET}.")
-            elif bet > MAX_BET:
-                print(f"❌ Maximum bet is ${MAX_BET}.")
-            elif bet > balance:
-                print("❌ You don't have enough balance.")
-            else:
-                return bet
-        except ValueError:
-            print("❌ Please enter a valid number.")
+    balance += winnings
 
-def print_reels(reels):
-    print("\n🎰 Spinning reels...")
-    time.sleep(1)
-    print(" | ".join(reels))
-    print()
+def increase_bet():
+    global bet
+    if bet < 50:
+        bet += 5
 
-def slot_machine():
-    balance = STARTING_BALANCE
-    print("🎰 Welcome to Python Slot Machine!")
-    print(f"💵 Starting balance: ${balance}\n")
+def decrease_bet():
+    global bet
+    if bet > 5:
+        bet -= 5
 
-    while balance >= MIN_BET:
-        print(f"Current balance: ${balance}")
-        bet = get_bet(balance)
+# Buttons
+buttons = [
+    Button(250, 300, 100, 50, "SPIN", spin),
+    Button(100, 300, 50, 50, "-", decrease_bet),
+    Button(160, 300, 50, 50, "+", increase_bet),
+]
 
-        reels = spin_reels()
-        print_reels(reels)
+# Game loop
+clock = pygame.time.Clock()
+running = True
+while running:
+    SCREEN.fill(GREEN)
 
-        winnings, result_msg = calculate_payout(reels, bet)
-        print(result_msg)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            for b in buttons:
+                b.click(event.pos)
 
-        if winnings > 0:
-            print(f"🎊 You won ${winnings}!")
-            balance += winnings
-        else:
-            balance -= bet
-            print(f"💸 You lost ${bet}.")
+    # Display reels
+    for i, symbol in enumerate(reels):
+        label = BIG_FONT.render(symbol or "❔", True, WHITE)
+        SCREEN.blit(label, (100 + i * 130, 150))
 
-        if balance < MIN_BET:
-            print("\n🛑 Not enough balance to continue. Game over!")
-            break
+    # Labels
+    balance_text = FONT.render(f"Balance: ${balance}", True, WHITE)
+    bet_text = FONT.render(f"Bet: ${bet}", True, WHITE)
+    msg_text = FONT.render(message, True, WHITE)
+    SCREEN.blit(balance_text, (20, 20))
+    SCREEN.blit(bet_text, (20, 60))
+    SCREEN.blit(msg_text, (20, 100))
 
-        again = input("🎲 Spin again? (y/n): ").strip().lower()
-        if again != 'y':
-            break
+    # Draw buttons
+    for b in buttons:
+        b.draw()
 
-    print(f"\n🏁 Final balance: ${balance}")
-    print("Thanks for playing!")
+    pygame.display.flip()
+    clock.tick(60)
 
-if __name__ == "__main__":
-    slot_machine()
+pygame.quit()
+sys.exit()
