@@ -25,5 +25,6 @@ print(Numberlist)
 Numberlist_subsum = Numberlist[0] + Numberlist[1] + Numberlist[2]
 print(Numberlist_subsum)
 #8. Create a list with two strings, two variables, and too boolean values.
-
+mixlist = [ "bob", "joe", 1, 2, True, False]
 #9. Create a print statement that asks the user to input their own index value for the list on #8.
+print(mixlist[int(input("enter Index value"))])
