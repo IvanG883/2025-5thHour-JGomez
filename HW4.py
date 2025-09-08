@@ -14,10 +14,10 @@ print(Namelist)
 #3. Print out the 4th name on the list.
 print(Namelist[3])
 #4. Create a list with 4 different integers in it.
-Numberlist = ["1","2","3", "4"]
+Numberlist = [1,2,3,4]
 
 #5. Insert a new integer into the 2nd spot and print the new list.
-Numberlist.insert(3,"7")
+Numberlist.insert(1,7)
 #6. Sort the list from lowest to highest and print the sorted list.
 Numberlist.sort()
 print(Numberlist)

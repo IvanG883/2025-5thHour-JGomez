@@ -13,17 +13,18 @@ Emptylist = []
 Emptylist.append(Numlist[4])
 Numlist.pop(4)
 #5. Remove the first number from the first list and add it to the second list.
-Emptylist.append(Numlist.pop(0))
+Emptylist.append(Numlist[0])
 Numlist.pop(0)
 #6. Print both lists.
 print(Numlist)
 print(Emptylist)
 #7. Add the two numbers in the second list together and print the result.
-Emptylist= [Emptylist[0] + Emptylist[1]]
-print(Emptylist)
+Emptylistsum= sum(Emptylist)
+print(Emptylistsum)
 #8. Move the number back to the first list (like you did in #4 and #5 but reversed).
 
-Numlist.append(Emptylist[0])
+Numlist.append(Emptylistsum)
+Emptylist.pop(0)
 Emptylist.pop(0)
 #9. Sort the first list from lowest to highest and print it.
 Numlist.sort()

@@ -87,6 +87,15 @@ buttons = [
     Button(160, 300, 50, 50, "+", increase_bet),
 ]
 
+# Symbol colors for colored rectangles
+symbol_colors = {
+    '🍒': (220, 20, 60),   # Cherry red
+    '🍋': (255, 255, 102), # Lemon yellow
+    '🔔': (255, 215, 0),   # Bell gold
+    '⭐': (255, 255, 255), # Star white
+    '💎': (135, 206, 235), # Diamond blue
+}
+
 # Game loop
 clock = pygame.time.Clock()
 running = True
@@ -100,10 +109,17 @@ while running:
             for b in buttons:
                 b.click(event.pos)
 
-    # Display reels
+    # Display reels with colored rectangles and symbols
     for i, symbol in enumerate(reels):
-        label = BIG_FONT.render(symbol or "❔", True, WHITE)
-        SCREEN.blit(label, (100 + i * 130, 150))
+        x = 100 + i * 130
+        y = 140
+        color = symbol_colors.get(symbol, (255, 255, 255))
+        pygame.draw.rect(SCREEN, color, (x, y, 100, 100))
+        pygame.draw.rect(SCREEN, BLACK, (x, y, 100, 100), 3)
+
+        label = BIG_FONT.render(symbol or "❔", True, BLACK)
+        label_rect = label.get_rect(center=(x + 50, y + 50))
+        SCREEN.blit(label, label_rect)
 
     # Labels
     balance_text = FONT.render(f"Balance: ${balance}", True, WHITE)
