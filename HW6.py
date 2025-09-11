@@ -33,7 +33,11 @@ print(randomlist)
 randomlist_sum = randomlist[0] + randomlist[1] + randomlist[2]
 print(randomlist_sum)
 #10. Create a list with 5 names of other students in this class and print the list.
-Namelist = ("jack", "john")
+Namelist = ["jack", "john", "jill", "roberto", "andrea", "ivan"]
+print(Namelist)
 #11. Shuffle the list in #10 and print the list again.
-
+random.shuffle(Namelist)
+print(Namelist)
 #12. Print a random choice from the list of names from #10.
+Namelist = random.choice(Namelist)
+print(Namelist)
