@@ -39,15 +39,15 @@ Creature = {
     },
 }
 
-Enemy_damage = 0
-print(f"enemy's current damage {Enemy_damage}")
-Enemy_damage += Creature["creature_1"]["damage"]
-print(f"enemy's current damage {Enemy_damage}")
-Enemy_damage += Creature["creature_2"]["damage"]
-print(f"enemy's current damage {Enemy_damage}")
-Enemy_damage += Creature["creature_3"]["damage"]
-print(f"enemy's current damage {Enemy_damage}")
-Enemy_damage += Creature["creature_4"]["damage"]
-print(f"enemy's current damage {Enemy_damage}")
-Enemy_damage += Creature["creature_5"]["damage"]
-print(f"enemys current damage {Enemy_damage}")
+
+Creature["creature_1"]["damage"] = int(input("change creature_1 damage"))
+print (Creature["creature_1"]["damage"])
+Creature["creature_2"]["damage"] = int(input("change creature_2 damage"))
+print (Creature["creature_2"]["damage"])
+Creature["creature_3"]["damage"] = int(input("change creature_3 damage"))
+print (Creature["creature_3"]["damage"])
+Creature["creature_4"]["damage"] = int(input("change creature_4 damage"))
+print (Creature["creature_4"]["damage"])
+Creature["creature_5"]["damage"] = int(input("change creature_5 damage"))
+print (Creature["creature_5"]["damage"])
+print (Creature)
