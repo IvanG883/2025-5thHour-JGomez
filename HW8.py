@@ -10,7 +10,7 @@ A = random.randint(1,10)
 B = random.randint(1,10)
 C = random.randint(1,10)
 
-#3. Print A, B, and C on the same line.
+#3. Print A, B, and +C on the same line.
 print(A,B,C)
 #4. Make an if statement that prints if variable A is greater than, less than, or equal to 5.
 a = random.randint(1,10)
@@ -28,6 +28,8 @@ else:
 if B > 3 and B < 7:
     print("B is greater than 3")
     print("B is less than 7")
+else:
+    print("B is not between 3 and 7")
 #6. Make an if statement that prints if variable C is even or odd.
 C = random.randint(1,10)
 
@@ -40,4 +42,10 @@ D = random.randint(1,20) +3
 print(D)
 
 #8. Make an if statement that prints if the variable from #7 is greater than, less than, or equal to A + B + C.
+if D > A+B+C:
+    print("D is greater than A+B+C")
+elif D < A+B+C:
+    print("D is less than A+B+C")
+else:
+    print("D is equal to A+B+C")
 
