@@ -19,7 +19,6 @@
 
 #Print thank you, and end the code
 
-
 #Code goes here:
 import random
 
