@@ -155,7 +155,11 @@ while partyDict["Shadowheart"]["HP"] > 0 and enemyDict["Orc"]["HP"] > 0:
             print(f"Shadowheart hits Orc for {(partyDict["Shadowheart"]["Damage"])}")
         else:
             print("Shadowheart missed thir attack")
-
+else:
+    if partyDict["Shadowheart"]["HP"] < 0:
+        print("Shadowheart died")
+    else:
+        print("Orc died")
 #3. If the attack hits, roll damage and subtract it from the target's hit points.
 
 #4. The second in initiative rolls to attack (and rolls damage) afterwards.
