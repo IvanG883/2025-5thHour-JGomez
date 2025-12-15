@@ -94,10 +94,7 @@ if Player1 >=  player2:
 else :
     print("Orc goes first")
     Player1first = False
-if Player1first == True:
-    print("Shadowheart goes first")
-else :
-    print("Orc goes first")
+
 #2. Rolling to attack. This is determined by rolling a 20-sided die (d20) and adding their
 #attack modifier. The attack hits if it matches or is higher than the target's Armor Class (AC).
 #If the d20 rolled to attack is an unmodified ("natural") 20, the attack automatically hits and
@@ -119,10 +116,9 @@ while partyDict["Shadowheart"]["HP"] > 0 and enemyDict["Orc"]["HP"] > 0:
         else:
            print("Shadowheart missed thir attack")
 
-
-       Player2atk =random.randint(1,20)
-    print(Player2atk)
-       if Player2atk == 20:
+        Player2atk = random.randint(1,20)
+        print(Player2atk)
+        if Player2atk == 20:
             partyDict["Shadowheart"]["HP"] -= (enemyDict["Orc"]["Damage"]*2)
             print(f"Orc hits Shadowheart for {(partyDict["Orc"]["Damage"]*2)}")
         elif Player2atk == 1:
@@ -133,7 +129,32 @@ while partyDict["Shadowheart"]["HP"] > 0 and enemyDict["Orc"]["HP"] > 0:
         else:
             print("Orc missed thir attack")
 
-
+    else:
+        print("Orc goes first")
+        Player2atk = random.randint(1, 20)
+        print(Player2atk)
+        if Player2atk == 20:
+            partyDict["Shadowheart"]["HP"] -= (enemyDict["Orc"]["Damage"] * 2)
+            print(f"Orc hits Shadowheart for {(partyDict["Orc"]["Damage"] * 2)}")
+        elif Player2atk == 1:
+            print("Roll natural 1, Missed attack")
+        elif Player2atk + enemyDict["Orc"]["AtkMod"] >= partyDict["Shadowheart"]["AC"]:
+            partyDict["Shadowheart"]["HP"] -= (enemyDict["Orc"]["Damage"])
+            print(f"Orc hits Orc for {(enemyDict["Orc"]["Damage"])}")
+        else:
+            print("Orc missed thir attack")
+        Player1atk = random.randint(1,20)
+        print(Player1atk)
+        if Player1atk == 20:
+            enemyDict["Orc"]["HP"] -= (partyDict["Shadowheart"]["Damage"]*2)
+            print(f"Shadowheart hits Orc for {(partyDict["Shadowheart"]["Damage"]*2)}")
+        elif Player1atk == 1:
+            print("Roll natural 1, Missed attack")
+        elif Player1atk + partyDict["Shadowheart"]["AtkMod"] >= enemyDict["Orc"]["AC"]:
+            enemyDict["Orc"]["HP"] -= (partyDict["Shadowheart"]["Damage"])
+            print(f"Shadowheart hits Orc for {(partyDict["Shadowheart"]["Damage"])}")
+        else:
+            print("Shadowheart missed thir attack")
 
 #3. If the attack hits, roll damage and subtract it from the target's hit points.
 
