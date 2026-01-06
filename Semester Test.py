@@ -120,12 +120,12 @@ while partyDict["Shadowheart"]["HP"] > 0 and enemyDict["Orc"]["HP"] > 0:
         print(Player2atk)
         if Player2atk == 20:
             partyDict["Shadowheart"]["HP"] -= (enemyDict["Orc"]["Damage"]*2)
-            print(f"Orc hits Shadowheart for {(partyDict["Orc"]["Damage"]*2)}")
+            print(f"Orc hits Shadowheart for {(enemyDict["Orc"]["Damage"]*2)}")
         elif Player2atk == 1:
             print("Roll natural 1, Missed attack")
         elif Player2atk + enemyDict["Orc"]["AtkMod"] >= partyDict["Shadowheart"]["AC"]:
             partyDict["Shadowheart"]["HP"] -= (enemyDict["Orc"]["Damage"])
-            print(f"Orc hits Orc for {(enemyDict["Orc"]["Damage"])}")
+            print(f"Orc hits Shadowheart for {(enemyDict["Orc"]["Damage"])}")
         else:
             print("Orc missed thir attack")
 
