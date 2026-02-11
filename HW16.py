@@ -22,15 +22,7 @@ def loop(R):
     for i in range (1,R+1):
         print (i)
 #5. Call all of the functions created in 1 - 4 with relevant arguments.
-hello_world()
-average(2,3,4)
-animal_list("frog",
-    "dog",
-    "cat",
-    "bird",
-    "rabbit",
-    )
-loop(69)
+
 #6. Create a variable x that has the value of 2. Print x
 x = 2
 #7. Create a def function that multiplies the value of 2 by a random number between 1 and 5.
