@@ -6,8 +6,8 @@
 print("hello world!")
 #2. Create three variables with strings as values.
 Horse = "string"
-number = 7
-Ivan = True
+number = "string"
+Ivan = "string"
 #3. Create three variables with booleans as values.
 Dog = True
 cat = False
