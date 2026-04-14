@@ -21,4 +21,4 @@ if varible3 > varible1 < varible2:
 elif varible3 > varible2 < varible1:
     print("varible2 is the lowest")
 else:
-    print("varible3 is the lowest")
+    print("varible1 is the lowest")
